@@ -3,7 +3,8 @@
     "description": "Site Luca B\u0000dgen",
     "type": "project",
     "require": {
-        "nesbot/carbon": "^2.42"
+        "nesbot/carbon": "^2.42",
+      "ext-mysqli": "*"
     },
     "authors": [
         {
