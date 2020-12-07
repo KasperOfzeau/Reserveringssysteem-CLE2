@@ -1,0 +1,14 @@
+{
+    "name": "kasper/reserveringssysteem",
+    "description": "Site Luca B\u0000dgen",
+    "type": "project",
+    "require": {
+        "nesbot/carbon": "^2.42"
+    },
+    "authors": [
+        {
+            "name": "Kasper Beljaars",
+            "email": "kasperbeljaars@hotmail.com"
+        }
+    ]
+}
