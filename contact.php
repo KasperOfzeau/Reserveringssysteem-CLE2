@@ -8,7 +8,7 @@ require __DIR__ . '/vendor/autoload.php';
 use Carbon\Carbon;
 
 // Load available times
-$query = "SELECT * FROM available_times WHERE planned = 0";
+$query = "SELECT * FROM `available_times` WHERE available_time >= now() AND planned = 0";
 
 $result = mysqli_query($db, $query)
 or die('Error '.mysqli_error($db).' with query '.$query);
@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
     }
 
     if($titleMessage == ''){
-        $errors['titleMessage'] = "Please enter a tile";
+        $errors['titleMessage'] = "Please enter a title";
     }
 
     if($message == ''){
@@ -104,7 +104,7 @@ mysqli_close($db);
 ?>
 
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <!-- Bootstrap files -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
