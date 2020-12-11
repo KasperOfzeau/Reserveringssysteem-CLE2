@@ -1,18 +1,6 @@
 <?php
-session_start();
-// If not logged in redirect to login page
-if($_SESSION["loggedIn"] != true){
-    header("Location: admin-login.php");
-    exit;
-}
-
-// Check login tiem
-if (time() - $_SESSION['loginTime'] > 300) {
-    header("Location: admin-login.php");
-    exit;
-} else {
-    $_SESSION['loginTime'] = time();
-}
+// Check logged in
+require_once "includes/checkLogin.php";
 
 // Load Carbon Library
 require __DIR__ . '/vendor/autoload.php';
@@ -21,6 +9,9 @@ use Carbon\Carbon;
 // Database connection
 /** @var $db */
 require_once "includes/config.ini.php";
+
+// PHP form files
+require_once "php/addNewTime.php";
 
 // Load available times
 $query = "SELECT * FROM `available_times` WHERE available_time >= now() AND planned = 0";
@@ -35,6 +26,7 @@ while($row = mysqli_fetch_assoc($result))
     $times[] = $row;
 }
 
+mysqli_close($db);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,31 +47,22 @@ while($row = mysqli_fetch_assoc($result))
 <ul>
     <?php foreach ($times as  $key => $time) {
         $dt = new Carbon($time['available_time']); ?>
-        <li><?= $dt->toDayDateTimeString()?></li>
+        <li><?= $dt->toDayDateTimeString()?> <a href="php/deleteTime.php?id=<?= $time['time_id']?>">Delete</a> </li>
     <?php } ?>
 </ul>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewTimeModal">Add new time</button>
-
-<!-- Modal -->
-<div class="modal fade" id="addNewTimeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add available time</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                    <input type="datetime-local" id="newTime" name="availableTime">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" name="submit">Add</button>
-            </div>
-        </div>
+<form action="" method="post">
+    <div class="form-group">
+        <label for="newTime">Add available time</label>
+        <?php if(isset($errors['newTime'])){ ?>
+            <p class="alert alert-danger" role="alert"><?= $errors['newTime']?></p>
+        <?php } ?>
+        <?php if(isset($success)){ ?>
+            <p class="alert alert-success" role="alert"><?= $success?></p>
+        <?php } ?>
+        <input type="datetime-local" class="form-control" id="newTime" name="newTime">
+        <button type="submit" id="submitNewTime" name="submitNewTime" class="btn btn-primary">Submit</button>
     </div>
-</div>
+</form>
 </body>
 </html>
 
