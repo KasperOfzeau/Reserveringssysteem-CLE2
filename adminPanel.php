@@ -26,6 +26,21 @@ while($row = mysqli_fetch_assoc($result))
     $times[] = $row;
 }
 
+// Load scheduled introductory meetings
+$query = "SELECT * FROM appointments
+INNER JOIN available_times ON appointments.appointment_time=available_times.time_id 
+WHERE available_times.available_time >= now()";
+
+$result = mysqli_query($db, $query)
+or die('Error '.mysqli_error($db).' with query '.$query);
+
+$appointments = [];
+
+while($row = mysqli_fetch_assoc($result))
+{
+    $appointments[] = $row;
+}
+
 mysqli_close($db);
 ?>
 <!DOCTYPE html>
@@ -43,13 +58,19 @@ mysqli_close($db);
     <title>Admin panel</title>
 </head>
 <body>
-<h1>Available times:</h1>
+<h2>Available times:</h2>
 <ul>
-    <?php foreach ($times as  $key => $time) {
+    <?php if(!empty($times)) {
+    foreach ($times as  $key => $time) {
         $dt = new Carbon($time['available_time']); ?>
         <li><?= $dt->toDayDateTimeString()?> <a href="php/deleteTime.php?id=<?= $time['time_id']?>">Delete</a> </li>
-    <?php } ?>
+    <?php }  ?>
 </ul>
+
+    <?php } else { ?>
+        <p>No dates and times have been entered.</p>
+    <?php }?>
+
 <form action="" method="post">
     <div class="form-group">
         <label for="newTime">Add available time</label>
@@ -63,6 +84,34 @@ mysqli_close($db);
         <button type="submit" id="submitNewTime" name="submitNewTime" class="btn btn-primary">Submit</button>
     </div>
 </form>
+
+<h2>Scheduled introductory meetings:</h2>
+<?php if(!empty($appointments)) { ?>
+<div class="row">
+    <?php foreach ($appointments as  $key => $appointment) {
+        $date = new Carbon($appointment['available_time']); ?>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Meeting with <?= $appointment['first_name'] . ' ' . $appointment['last_name'] ?></h5>
+                    <p class="card-text"><small class="text-muted"><?= $date->toDayDateTimeString() ?></small></p>
+                    <ul>
+                        <li><?= $appointment['emailadress'] ?></li>
+                        <li><?= $appointment['telephone_number'] ?></li>
+                        <li><?= $appointment['adress'] ?></li>
+                    </ul>
+                    <h6><?= $appointment['message_title'] ?></h6>
+                    <p class="card-text"><?= $appointment['message_text'] ?></p>
+
+<!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+                </div>
+            </div>
+        </div>
+    <?php }  ?>
+</div>
+<?php } else { ?>
+    <p>No dates and times have been entered.</p>
+<?php }?>
 </body>
 </html>
 
