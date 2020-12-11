@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
     $first_name = $_POST['firstName'];
     $last_name = $_POST['lastName'];
     $email = $_POST['email'];
-    $phoneNumber = preg_match('/^[0-9]{10}+$/',$_POST['phoneNumber']);
+    $phoneNumber = $_POST['phoneNumber'];
     $adress = $_POST['adress'];
     $city = $_POST['city'];
     $postalCode = $_POST['postalCode'];
@@ -93,7 +93,14 @@ if (isset($_POST['submit'])) {
     VALUES('$first_name', '$last_name', '$email', '$phoneNumber', '$fullAdress', '$titleMessage', '$message', '$time_id')";
 
         if (mysqli_query($db, $sql)) {
-            $succes = "Your introductory meeting has been successfully scheduled! You will receive a confirmation by email!";
+
+            $sql = "UPDATE available_times SET planned=1 WHERE time_id='$time_id'";
+
+            if (mysqli_query($db, $sql)) {
+                $succes = "Your introductory meeting has been successfully scheduled! You will receive a confirmation by email!";
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($db);
+            }
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($db);
         }
