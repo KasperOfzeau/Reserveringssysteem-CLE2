@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "nesbot/carbon": "^2.42",
-      "ext-mysqli": "*"
+      "ext-mysqli": "*",
+        "": "^6.2"
     },
     "authors": [
         {

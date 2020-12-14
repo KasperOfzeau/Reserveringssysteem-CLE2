@@ -14,24 +14,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '4910a19c37ac9dfdbcff7bc18bce47e571d82a68',
     'name' => 'kasper/reserveringssysteem',
   ),
   'versions' => 
   array (
     'kasper/reserveringssysteem' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '4910a19c37ac9dfdbcff7bc18bce47e571d82a68',
     ),
     'nesbot/carbon' => 
     array (
@@ -41,6 +41,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'd0463779663437392fe42ff339ebc0213bd55498',
+    ),
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.2.0',
+      'version' => '6.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e38888a75c070304ca5514197d4847a59a5c853f',
     ),
     'symfony/polyfill-mbstring' => 
     array (
