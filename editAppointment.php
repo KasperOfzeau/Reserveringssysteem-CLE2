@@ -27,13 +27,14 @@ if (isset($_POST['submit'])) {
 
     $errors = [];
 
-    $first_name = $_POST['firstName'];
-    $last_name = $_POST['lastName'];
-    $email = $_POST['email'];
-    $phoneNumber = $_POST['phoneNumber'];
-    $adress = $_POST['adress'];
-    $titleMessage = $_POST['titleMessage'];
-    $message = $_POST['message'];
+    $first_name = mysqli_escape_string($db ,$_POST['firstName']);
+    $last_name = mysqli_escape_string($db ,$_POST['lastName']);
+    $email = mysqli_escape_string($db ,$_POST['email']);
+    $phoneNumber = mysqli_escape_string($db ,$_POST['phoneNumber']);
+    $adress = mysqli_escape_string($db ,$_POST['adress']);
+    $titleMessage = mysqli_escape_string($db ,$_POST['titleMessage']);
+    $message = mysqli_escape_string($db ,$_POST['message']);
+    $id = mysqli_escape_string($db ,$_POST['id']);
 
     // Check values
     if($first_name == ''){
@@ -163,6 +164,7 @@ mysqli_close($db);
         <?php } ?>
         <input type="text" value="<?php if(isset($appointmentTime) && !isset($succes)){ echo $appointmentTime; }else{ echo $row['available_time'];}?>" name="appointmentTime" id="appointmentTime" readonly>
     </div>
+    <input type="text" hidden name="id" value="<?= $id?>">
     <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
 </form>
 </body>

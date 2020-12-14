@@ -3,7 +3,7 @@
 /** @var $db */
 require_once "includes/config.ini.php";
 
-// Load Carbon Library
+// Load Composer libraries
 require __DIR__ . '/vendor/autoload.php';
 use Carbon\Carbon;
 
@@ -25,17 +25,17 @@ if (isset($_POST['submit'])) {
 
     $errors = [];
 
-    $first_name = $_POST['firstName'];
-    $last_name = $_POST['lastName'];
-    $email = $_POST['email'];
-    $phoneNumber = $_POST['phoneNumber'];
-    $adress = $_POST['adress'];
-    $city = $_POST['city'];
-    $postalCode = $_POST['postalCode'];
-    $titleMessage = $_POST['titleMessage'];
-    $message = $_POST['message'];
+    $first_name = mysqli_escape_string($db ,$_POST['firstName']);
+    $last_name = mysqli_escape_string($db ,$_POST['lastName']);
+    $email = mysqli_escape_string($db ,$_POST['email']);
+    $phoneNumber = mysqli_escape_string($db ,$_POST['phoneNumber']);
+    $adress = mysqli_escape_string($db ,$_POST['adress']);
+    $city = mysqli_escape_string($db ,$_POST['city']);
+    $postalCode = mysqli_escape_string($db ,$_POST['postalCode']);
+    $titleMessage = mysqli_escape_string($db ,$_POST['titleMessage']);
+    $message = mysqli_escape_string($db, $_POST['message']);
     if(isset($_POST['appointmentTime'])) {
-        $time_id = $_POST['appointmentTime'];
+        $time_id = mysqli_escape_string($db, $_POST['appointmentTime']);
     } else {
         $time_id = '';
         $errors['time_id'] = "Please select a time & date";
