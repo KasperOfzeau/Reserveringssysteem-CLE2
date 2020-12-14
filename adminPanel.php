@@ -102,15 +102,14 @@ mysqli_close($db);
                     </ul>
                     <h6><?= $appointment['message_title'] ?></h6>
                     <p class="card-text"><?= $appointment['message_text'] ?></p>
-
-<!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+                    <a href="editAppointment.php?id=<?= $appointment['appointment_id'] ?>" class="btn btn-primary">Edit</a>
                 </div>
             </div>
         </div>
     <?php }  ?>
 </div>
 <?php } else { ?>
-    <p>No dates and times have been entered.</p>
+    <p>No meetings planned.</p>
 <?php }?>
 </body>
 </html>
