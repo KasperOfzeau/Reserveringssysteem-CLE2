@@ -120,18 +120,29 @@ mysqli_close($db);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <meta charset="UTF-8">
     <title>Contact</title>
 </head>
 <body>
+<header>
+    <nav class="navbar">
+        <div class="container">
+                <img src="images/Logoluca.jpg" alt="" width="325" height="43">
+        </div>
+    </nav>
+</header>
+<div class="container">
 <?php if(isset($succes)){ ?>
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Hooray!</h4>
         <?= $succes?>
     </div>
 <?php } ?>
-<form action="" method="post">
+<form action="" method="post" id="contactForm">
     <div class="form-group">
         <label for="firstName">First name</label>
         <?php if(isset($errors['first_name'])){ ?>
@@ -206,7 +217,13 @@ mysqli_close($db);
             <?php } ?>
         </select>
     </div>
-    <button type="submit" id="submit" name="submit" class="btn btn-primary">Send</button>
+    <button type="submit" id="submit" name="submit" class="btn">Send</button>
 </form>
+</div>
+<footer class="sticky-bottom">
+    <div class="container">
+        <img src="images/Logoluca.jpg" alt="" width="250">
+    </div>
+</footer>
 </body>
 </html>
