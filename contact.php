@@ -25,17 +25,17 @@ if (isset($_POST['submit'])) {
 
     $errors = [];
 
-    $first_name = mysqli_escape_string($db ,$_POST['firstName']);
-    $last_name = mysqli_escape_string($db ,$_POST['lastName']);
-    $email = mysqli_escape_string($db ,$_POST['email']);
-    $phoneNumber = mysqli_escape_string($db ,$_POST['phoneNumber']);
-    $adress = mysqli_escape_string($db ,$_POST['adress']);
-    $city = mysqli_escape_string($db ,$_POST['city']);
-    $postalCode = mysqli_escape_string($db ,$_POST['postalCode']);
-    $titleMessage = mysqli_escape_string($db ,$_POST['titleMessage']);
-    $message = mysqli_escape_string($db, $_POST['message']);
+    $first_name = htmlspecialchars(mysqli_escape_string($db ,$_POST['firstName']), ENT_QUOTES, 'UTF-8');
+    $last_name = htmlspecialchars(mysqli_escape_string($db ,$_POST['lastName']), ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars(mysqli_escape_string($db ,$_POST['email']));
+    $phoneNumber = htmlspecialchars(mysqli_escape_string($db ,$_POST['phoneNumber']), ENT_QUOTES, 'UTF-8');
+    $adress = htmlspecialchars(mysqli_escape_string($db ,$_POST['adress']), ENT_QUOTES, 'UTF-8');
+    $city = htmlspecialchars(mysqli_escape_string($db ,$_POST['city']), ENT_QUOTES, 'UTF-8');
+    $postalCode = htmlspecialchars(mysqli_escape_string($db ,$_POST['postalCode']), ENT_QUOTES, 'UTF-8');
+    $titleMessage = htmlspecialchars(mysqli_escape_string($db ,$_POST['titleMessage']), ENT_QUOTES, 'UTF-8');
+    $message = htmlspecialchars(mysqli_escape_string($db, $_POST['message']), ENT_QUOTES, 'UTF-8');
     if(isset($_POST['appointmentTime'])) {
-        $time_id = mysqli_escape_string($db, $_POST['appointmentTime']);
+        $time_id = htmlspecialchars(mysqli_escape_string($db, $_POST['appointmentTime']), ENT_QUOTES, 'UTF-8');
     } else {
         $time_id = '';
         $errors['time_id'] = "Please select a time & date";
@@ -94,10 +94,10 @@ if (isset($_POST['submit'])) {
 
         if (mysqli_query($db, $sql)) {
 
-            $sql = "UPDATE available_times SET planned=1 WHERE time_id='$time_id'";
+            $sql2 = "UPDATE available_times SET planned = 1 WHERE time_id='$time_id'";
 
-            if (mysqli_query($db, $sql)) {
-                $succes = "Your introductory meeting has been successfully scheduled! You will receive a confirmation by email!";
+            if (mysqli_query($db, $sql2)) {
+                $succes = "Your introductory meeting has been successfully scheduled!";
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($db);
             }
@@ -158,7 +158,7 @@ mysqli_close($db);
         <?php if(isset($errors['phoneNumber'])){ ?>
             <p class="alert alert-danger" role="alert"><?= $errors['phoneNumber']?></p>
         <?php } ?>
-        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php if(isset($email) && !isset($succes)){ echo $email; }?>" placeholder="">
+        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php if(isset($phoneNumber) && !isset($succes)){ echo $phoneNumber; }?>" placeholder="">
     </div>
     <div class="form-group">
         <label for="adress">Address</label>
