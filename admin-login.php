@@ -3,33 +3,41 @@
 // Check if form is submitted.
 if(isset($_POST['submit'])) {
 
+    // Database connection
+    /** @var $db */
+    require_once "includes/config.ini.php";
+
     $error = '';
-    $userName = $_POST['inputUsername'];
-    $password = $_POST['inputPassword'];
+    $userName = mysqli_escape_string($db, $_POST['inputUsername']);
+    $password = mysqli_escape_string($db, $_POST['inputPassword']);
 
     if ($userName == '' || $password == '') {
         $error = "Please fill both the username and password fields!";
     } else {
 
-        // Hash password
-        $hashed_password = sha1($password);
-
-        // Database connection
-        /** @var $db */
-        require_once "includes/config.ini.php";
-
         // Check username and password in database
-        $query = "SELECT * FROM admin_users WHERE username ='$userName' AND password ='$hashed_password'";
+        $query = "SELECT * FROM admin_users WHERE username ='$userName'";
         $select_data = mysqli_query($db, $query);
 
         if (mysqli_num_rows($select_data) == 1) {
-            // Successful login
-            session_start();
-            $_SESSION['loggedIn'] = true;
-            $_SESSION['loginTime'] = time();
-            mysqli_close($db);
-            header("Location: adminPanel.php");
-            exit;
+            $row = mysqli_fetch_assoc($select_data);
+            $hash = substr( $row['password'], 0, 60 );
+            $pass = mysqli_escape_string($db, $_POST['inputPassword']);
+
+            // Check if password is correct
+            if(password_verify($pass, $hash)){
+                // Successful login
+                session_start();
+                $_SESSION['loggedIn'] = true;
+                $_SESSION['loginTime'] = time();
+                mysqli_close($db);
+                header("Location: adminPanel.php");
+                exit;
+            } else {
+                // Failed login
+                $error = "You have entered an invalid username or password";
+                mysqli_close($db);
+            }
         } else {
             // Failed login
             $error = "You have entered an invalid username or password";
