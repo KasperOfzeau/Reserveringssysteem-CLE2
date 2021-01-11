@@ -3,16 +3,28 @@
     background-color: #000!important;
 }
 
-/* ------ CONTACT FORM ----- */
+/* ------ CONTACT PAGE ----- */
 
 #contactForm {
-    margin-bottom: 50px;
+    margin: 50px 0px;
 }
 
-label, input, select, button, input::placeholder, select::placeholder {
+label, input, select, button, input::placeholder, select::placeholder, #contactQuote, #contactTitle {
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
     font-size: 15px;
+}
+
+#contactQuote {
+    padding: 75px 0px 50px 0px;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+}
+
+#contactTitle {
+    font-size: 20px;
+    text-align: center;
 }
 
 button {
@@ -30,4 +42,10 @@ footer {
     height: 60px;
     line-height: 60px;
     background-color: #000;
+}
+
+#footertext {
+    text-align: center;
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
 }

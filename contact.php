@@ -136,6 +136,8 @@ mysqli_close($db);
     </nav>
 </header>
 <div class="container">
+    <p id="contactQuote">Let's turn your ideas into appealing visuals</p>
+    <h1 id="contactTitle">Schedule an introductory meeting</h1>
 <?php if(isset($succes)){ ?>
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Hooray!</h4>
@@ -179,15 +181,19 @@ mysqli_close($db);
         <input type="text" class="form-control" id="adress" name="adress" value="<?php if(isset($adress) && !isset($succes)){ echo $adress; }?>" placeholder="">
     </div>
     <div class="form-group">
-        <label for="city">City & </label>
-        <label for="postalCode">Postal code</label>
-        <?php if(isset($errors['CityPostalCode'])){ ?>
-            <p class="alert alert-danger" role="alert"><?= $errors['CityPostalCode']?></p>
-        <?php } ?>
-    <div class="input-group">
-        <input type="text" id="city" name="city" value="<?php if(isset($city) && !isset($succes)){ echo $city; }?>" class="form-control">
-        <input type="text" id="postalCode" name="postalCode" value="<?php if(isset($postalCode) && !isset($succes)){ echo $postalCode; }?>" class="form-control">
-    </div>
+        <div class="row g-3">
+            <?php if(isset($errors['CityPostalCode'])){ ?>
+                <p class="alert alert-danger" role="alert"><?= $errors['CityPostalCode']?></p>
+            <?php } ?>
+            <div class="col">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" value="<?php if(isset($city) && !isset($succes)){ echo $city; }?>" class="form-control">
+            </div>
+            <div class="col">
+                <label for="postalCode">Postal code</label>
+                <input type="text" id="postalCode" name="postalCode" value="<?php if(isset($postalCode) && !isset($succes)){ echo $postalCode; }?>" class="form-control">
+            </div>
+        </div>
     </div>
     <div class="form-group">
         <label for="titleMessage">Title message</label>
@@ -222,7 +228,15 @@ mysqli_close($db);
 </div>
 <footer class="sticky-bottom">
     <div class="container">
-        <img src="images/Logoluca.jpg" alt="" width="250">
+        <div class="row">
+            <div class="col-sm">
+                <img src="images/Logoluca.jpg" alt="" width="250">
+            </div>
+            <div class="col-sm" id="footertext">
+                <span>© Luca Büdgen 2018 - 2020</span>
+            </div>
+            <div class="col-sm"></div>
+        </div>
     </div>
 </footer>
 </body>
