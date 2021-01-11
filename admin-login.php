@@ -58,13 +58,16 @@ if(isset($_POST['submit'])) {
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/signin.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <meta charset="UTF-8">
     <title>Admin login</title>
 </head>
 <body class="text-center">
 <form class="form-signin" method="post" action="">
-    <h1 class="h3 mb-3 font-weight-normal">Admin log in</h1>
+    <h1 class="mb-3">Admin log in</h1>
     <?php if(isset($error)){ ?>
         <div class="alert alert-danger" role="alert">
             <h4 class="alert-heading">Oops!</h4>
@@ -75,8 +78,8 @@ if(isset($_POST['submit'])) {
     <input type="text" id="inputUsername" name="inputUsername" class="form-control" placeholder="Username" autofocus="" autocomplete="off">
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" autocomplete="off">
-    <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">© Luca Büdgen 2018 - 2020</p>
+    <button class="btn login-btn" name="submit" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted footer-text">© Luca Büdgen 2018 - 2020</p>
 </form>
 </body>
 </html>
