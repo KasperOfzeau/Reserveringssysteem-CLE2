@@ -3,6 +3,18 @@
     background-color: #000!important;
 }
 
+.nav-item {
+    color: #e9ecef;
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+}
+
+.nav-item:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
 /* ------ CONTACT PAGE ----- */
 
 #contactForm {
@@ -27,12 +39,48 @@ label, input, select, button, input::placeholder, select::placeholder, #contactQ
     text-align: center;
 }
 
-button {
+button, .edit-btn {
     border: 1px solid #000!important;
     border-radius: 2px;
     padding: 6px 25px!important;
     margin-top: 25px;
     width: 20%;
+}
+
+/* ------ ADMIN PANEL ----- */
+
+#adminPanel {
+    padding: 50px 0px;
+}
+
+#adminPanel h1, #adminPanel h2, #adminPanel h5, #adminPanel h6 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+}
+
+.section1 {
+    padding-bottom: 50px;
+}
+
+.deleteButton, .deleteButton:hover {
+    color: red;
+}
+
+.card-text, li, .text-muted {
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+}
+
+ul.details {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+}
+
+/* ------ EDIT PAGE ------ */
+
+#edit-page {
+    padding: 50px 0px;
 }
 
 /* ------ FOOTER ------ */
