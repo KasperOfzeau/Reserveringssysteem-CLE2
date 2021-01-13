@@ -99,15 +99,26 @@ mysqli_close($db);
     <title>Contact</title>
 </head>
 <body>
-
-<a href="adminPanel.php">Go back</a>
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <img src="images/Logoluca.jpg" alt="" width="325" height="43">
+            <div class="" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                        <a class="nav-item nav-link" href="adminPanel.php">Back to adminpanel</a>
+                    </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container" id="edit-page">
 <?php if(isset($succes)){ ?>
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Hooray!</h4>
         <?= $succes?>
     </div>
 <?php } ?>
-<form action="" method="post">
+<form action="" method="post" class="edit-form">
     <div class="form-group">
         <label for="firstName">First name</label>
         <?php if(isset($errors['first_name'])){ ?>
@@ -144,28 +155,43 @@ mysqli_close($db);
         <input type="text" class="form-control" id="adress" name="adress" value="<?php if(isset($adress) && !isset($succes)){ echo $adress; }else{ echo $row['adress'];}?>">
     </div>
     <div class="form-group">
-        <label for="titleMessage">Title message</label>
+        <label for="titleMessage">Title message *</label>
         <?php if(isset($errors['titleMessage'])){ ?>
             <p class="alert alert-danger" role="alert"><?= $errors['titleMessage']?></p>
         <?php } ?>
         <input type="text" class="form-control" id="titleMessage" name="titleMessage" readonly value="<?php if(isset($titleMessage) && !isset($succes)){ echo $titleMessage; }else{ echo $row['message_title'];}?>">
     </div>
     <div class="form-group">
-        <label for="message">Describe your ideas</label>
+        <label for="message">Describe your ideas *</label>
         <?php if(isset($errors['message'])){ ?>
             <p class="alert alert-danger" role="alert"><?= $errors['message']?></p>
         <?php } ?>
         <textarea class="form-control" id="message" name="message"  readonly rows="3"><?php if(isset($message) && !isset($succes)){ echo $message; }else{ echo $row['message_text'];}?></textarea>
     </div>
     <div class="form-group">
-        <label for="appointmentTime">Time & date for the introductory meeting</label>
+        <label for="appointmentTime">Time & date for the introductory meeting *</label>
         <?php if(isset($errors['appointmentTime'])){ ?>
         <p class="alert alert-danger" role="alert"><?= $errors['appointmentTime']?></p>
         <?php } ?>
         <input type="text" value="<?php if(isset($appointmentTime) && !isset($succes)){ echo $appointmentTime; }else{ echo $row['available_time'];}?>" name="appointmentTime" id="appointmentTime" readonly>
     </div>
     <input type="text" hidden name="id" value="<?= $id?>">
-    <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+    <p>* Not editable</p>
+    <button type="submit" id="submit" name="submit" class="btn">Update</button>
 </form>
+</div>
+<footer class="sticky-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <img src="images/Logoluca.jpg" alt="" width="250">
+            </div>
+            <div class="col-sm" id="footertext">
+                <span>© Luca Büdgen 2018 - 2020</span>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

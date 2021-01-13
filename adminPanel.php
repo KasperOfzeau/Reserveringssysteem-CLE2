@@ -53,64 +53,91 @@ mysqli_close($db);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <meta charset="UTF-8">
     <title>Admin panel</title>
 </head>
 <body>
-<h2>Available times:</h2>
-<ul>
-    <?php if(!empty($times)) {
-    foreach ($times as  $key => $time) {
-        $dt = new Carbon($time['available_time']); ?>
-        <li><?= $dt->toDayDateTimeString()?> <a href="php/deleteTime.php?id=<?= $time['time_id']?>">Delete</a> </li>
-    <?php }  ?>
-</ul>
-
-    <?php } else { ?>
-        <p>No dates and times have been entered.</p>
-    <?php }?>
-
-<form action="" method="post">
-    <div class="form-group">
-        <label for="newTime">Add available time</label>
-        <?php if(isset($errors['newTime'])){ ?>
-            <p class="alert alert-danger" role="alert"><?= $errors['newTime']?></p>
-        <?php } ?>
-        <?php if(isset($success)){ ?>
-            <p class="alert alert-success" role="alert"><?= $success?></p>
-        <?php } ?>
-        <input type="datetime-local" class="form-control" id="newTime" name="newTime">
-        <button type="submit" id="submitNewTime" name="submitNewTime" class="btn btn-primary">Submit</button>
-    </div>
-</form>
-
-<h2>Scheduled introductory meetings:</h2>
-<?php if(!empty($appointments)) { ?>
-<div class="row">
-    <?php foreach ($appointments as  $key => $appointment) {
-        $date = new Carbon($appointment['available_time']); ?>
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Meeting with <?= $appointment['first_name'] . ' ' . $appointment['last_name'] ?></h5>
-                    <p class="card-text"><small class="text-muted"><?= $date->toDayDateTimeString() ?></small></p>
-                    <ul>
-                        <li><?= $appointment['emailadress'] ?></li>
-                        <li><?= $appointment['telephone_number'] ?></li>
-                        <li><?= $appointment['adress'] ?></li>
-                    </ul>
-                    <h6><?= $appointment['message_title'] ?></h6>
-                    <p class="card-text"><?= $appointment['message_text'] ?></p>
-                    <a href="editAppointment.php?id=<?= $appointment['appointment_id'] ?>" class="btn btn-primary">Edit</a>
-                </div>
-            </div>
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <img src="images/Logoluca.jpg" alt="" width="325" height="43">
         </div>
-    <?php }  ?>
+    </nav>
+</header>
+<div class="container" id="adminPanel">
+    <div class="section1">
+        <h2>Available times:</h2>
+            <?php if(!empty($times)) {?>
+            <ul>
+            <?php foreach ($times as  $key => $time) {
+                $dt = new Carbon($time['available_time']); ?>
+                <li><?= $dt->toDayDateTimeString()?> <a class="deleteButton" href="php/deleteTime.php?id=<?= $time['time_id']?>">Delete</a> </li>
+            <?php }  ?>
+            </ul>
+            <?php } else { ?>
+                <p>No dates and times have been entered.</p>
+            <?php }?>
+
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="newTime">Add available time</label>
+                <?php if(isset($errors['newTime'])){ ?>
+                    <p class="alert alert-danger" role="alert"><?= $errors['newTime']?></p>
+                <?php } ?>
+                <?php if(isset($success)){ ?>
+                    <p class="alert alert-success" role="alert"><?= $success?></p>
+                <?php } ?>
+                <input type="datetime-local" class="form-control" id="newTime" name="newTime">
+                <button type="submit" id="submitNewTime" name="submitNewTime" class="btn">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="section2">
+        <h2>Scheduled introductory meetings:</h2>
+        <?php if(!empty($appointments)) { ?>
+        <div class="row">
+            <?php foreach ($appointments as  $key => $appointment) {
+                $date = new Carbon($appointment['available_time']); ?>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Meeting with <?= $appointment['first_name'] . ' ' . $appointment['last_name'] ?></h5>
+                            <p class="card-text"><small class="text-muted"><?= $date->toDayDateTimeString() ?></small></p>
+                            <ul class="details">
+                                <li><?= $appointment['emailadress'] ?></li>
+                                <li><?= $appointment['telephone_number'] ?></li>
+                                <li><?= $appointment['adress'] ?></li>
+                            </ul>
+                            <h6><?= $appointment['message_title'] ?></h6>
+                            <p class="card-text"><?= $appointment['message_text'] ?></p>
+                            <a href="editAppointment.php?id=<?= $appointment['appointment_id'] ?>" class="btn edit-btn">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            <?php }  ?>
+        </div>
+        <?php } else { ?>
+            <p>No meetings planned.</p>
+        <?php }?>
+    </div>
 </div>
-<?php } else { ?>
-    <p>No meetings planned.</p>
-<?php }?>
+<footer class="sticky-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <img src="images/Logoluca.jpg" alt="" width="250">
+            </div>
+            <div class="col-sm" id="footertext">
+                <span>© Luca Büdgen 2018 - 2020</span>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
 
